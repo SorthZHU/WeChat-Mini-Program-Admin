@@ -5,7 +5,26 @@ Page({
    * 页面的初始数据
    */
   data: {
+    newsNotice:[
+      {
+        title:"通知管理",
+        iconName:"tongzhi"
+      },
+      {
+        title:"新闻管理",
+        iconName:"xinwen"
+      },
+    ]
 
+  },
+  test(event){
+    var num = event.detail.index
+    console.log(num)
+    if(num == 0){
+      wx.navigateTo({
+        url: '../noticelist/noticelist'
+      })
+    }
   },
 
   /**
