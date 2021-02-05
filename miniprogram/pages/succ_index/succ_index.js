@@ -25,6 +25,11 @@ Page({
         url: '../noticelist/noticelist'
       })
     }
+    else if(num == 1){
+      wx.navigateTo({
+        url: '../newslist/newslist'
+      })
+    }
   },
 
   /**

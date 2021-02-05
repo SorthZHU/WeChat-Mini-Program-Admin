@@ -1,16 +1,12 @@
 <!-- 顶部导航栏 -->
 <view class="pubTitle">
-      <view class="txt">通知管理</view>
-      <navigator url="" class="more" open-type="reLaunch" bindtap="jumpToAdd">
+      <view class="txt">新闻管理</view>
+      <view class="more" open-type="reLaunch" bindtap="jumpToAdd">
         <image src="cloud://wxyun-7g4bm1vn16ceb7ed.7778-wxyun-7g4bm1vn16ceb7ed-1304852033/icon/加.png"></image>
-      </navigator>
+      </view>
 </view>
 
 <view class="container">
-<view wx:for="list">
-  <l-list title="购物车" />
-</view>
-
   
   <!-- 查询内容 这里面定义实体类里面的字段-->
   <view class="row">

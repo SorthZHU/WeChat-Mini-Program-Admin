@@ -62,5 +62,10 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  jumpToAdd:function(){
+    wx.navigateTo({
+      url: '../notice/notice'
+    })
+  },
 })
