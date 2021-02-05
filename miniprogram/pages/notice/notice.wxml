@@ -1,0 +1,34 @@
+<view class="pubTitle">
+      <view class="txt">添加通知</view>
+      <view  class="more" open-type="reLaunch"></view>
+</view>
+
+<l-form name="notice" l-form-btn-class="l-form-btn-class" bind:linsubmit="submit">
+  
+  <l-form-item label="标题:" name="noticeTitle">
+      <l-input id="noticeTitle" value="{{notice.title}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+
+  <l-form-item label="作者:" name="noticeAuthor">
+      <l-input id="noticeAuthor" value="{{notice.author}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+
+  <l-form-item label="内容:" name="noticeContent">
+      <l-textarea id="noticeContent" value="{{notice.content}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+  <view slot="submit">
+      <l-button>提交</l-button>
+  </view>
+  <view slot="reset">
+      <l-button type="default" plain>重置</l-button>
+  </view>
+
+</l-form>
+
+<!-- <form bindsubmit="btnSub">
+  <input name="title" placeholder="请输入标题"></input>
+  <input name="author" placeholder="请输入作者"></input>
+  <textarea name="content"  cols="30" rows="10" placeholder="请输入内容"></textarea>
+  <button type="primary" form-type="submit">提交</button>
+  <button type="primary" form-type="reset">重置</button>
+</form> -->

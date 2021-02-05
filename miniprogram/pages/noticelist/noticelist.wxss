@@ -1,0 +1,118 @@
+.pubTitle{display:flex;justify-content: space-between;height: 60rpx;align-items: center;margin-top: 20rpx;margin-bottom: 20rpx;}
+.pubTitle .txt{height: 100%; font-size: 40rpx;position: relative;padding-left: 20rpx;}
+.pubTitle .txt::before{display: block;width: 10rpx;height: 30rpx;background: brown;content: "";position: absolute; left: 0;top: 50%;margin-top: -15rpx;}
+.pubTitle .more image{height: 40rpx;width: 40rpx;margin-right: 20rpx;}
+
+.row{
+  padding:40rpx 30rpx;border-bottom: 1px solid #cccccc;
+}
+.row .title{
+  font-size: 40rpx;
+  /* 自动转换省略号 */
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  -webkit-box-orient:vertical;
+}
+.line{
+  /* height: 1px; */
+  width: 100%;
+  /* border:1px solid #5CACEE */
+  border-bottom:2rpx solid 	#838B83;
+}
+.erow{
+  font-size: 40rpx;
+  /* 自动转换省略号 */
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  -webkit-box-orient:vertical;
+
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: 0px;
+}
+
+/* 添加导航样式 */
+
+.link {
+  position: absolute;
+  left: 370px;
+  top: 50px;
+  width: 20px;
+  height: 20px;
+}
+
+/* 内容样式 */
+
+.content {
+  border: 1px solid black;
+  width: 700rpx;
+  height: 200rpx;
+}
+
+/* 编号样式 */
+.searchicon {
+  width: 20px;
+  height: 20px;
+}
+.equipid {
+  margin-left: 10px;
+}
+
+/* 型号样式 */
+
+.modelno {
+  margin-left: 150px;
+  margin-top: -20px;
+}
+
+/* 名称样式 */
+
+.motername {
+  margin-left: 10px;
+}
+
+/* 日期样式 */
+
+.modedate {
+  margin-left: 10px;
+}
+
+/* 容量样式 */
+
+.cap {
+  margin-left: 150px;
+  margin-top: -20px;
+}
+
+/* 操作样式 */
+
+.opration {
+  margin-left: 300px;
+}
+
+.opration image{
+  height: 40rpx;
+  width: 40rpx;
+}
+/* 操作的修改图标样式 */
+
+.edit {
+  margin-left: 30px;
+  margin-top: -22px;
+}
+
+/* .scrollLook {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  margin-left: 50px;
+  margin-top: 50px;
+  height: 500px;
+} */

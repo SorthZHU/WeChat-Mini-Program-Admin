@@ -1,0 +1,47 @@
+
+.pubTitle{display:flex;justify-content: space-between;height: 60rpx;align-items: center;margin-top: 20rpx;margin-bottom: 20rpx;}
+.pubTitle .txt{height: 100%; font-size: 40rpx;position: relative;padding-left: 20rpx;}
+.pubTitle .txt::before{display: block;width: 10rpx;height: 30rpx;background: brown;content: "";position: absolute; left: 0;top: 50%;margin-top: -15rpx;}
+.pubTitle .more image{height: 40rpx;width: 40rpx;margin-right: 20rpx;}
+
+
+.workbench{
+  font-size: 50rpx;
+  background: #fff;
+  padding-bottom: 30rpx;
+  
+  margin-bottom:10rpx;
+  color: #333;
+}
+.workbench .title{
+  font-size:30rpx;
+  padding: 20rpx 20rpx;
+  margin-bottom: 40rpx;
+  display: block;
+}
+.workbench .list{
+  
+  display: flex;
+  flex-direction: row;
+  flex:1;
+}
+.workbench .items{
+  width: 100rpx;
+  
+  flex:1;
+  text-align: center;
+}
+.workbench .items image{
+  width: 100rpx;
+  height: 100rpx;
+}
+.workbench .items image.service-icon{
+  width: 50rpx;
+  height: 50rpx;
+}
+.workbench .items .tip{
+  display: block;
+  font-size: 30rpx;
+  text-align: center;
+  margin-top: 10rpx;
+}

@@ -1,0 +1,9 @@
+<block>
+    
+    <form bindsubmit="onLogin">
+      <view class="header">账号密码登录</view>
+      <input name="username" placeholder="Username"></input>
+      <input name="password" placeholder="Password" password></input>
+      <button form-type="submit" hover-class="hover">登录</button>
+    </form>
+  </block>
