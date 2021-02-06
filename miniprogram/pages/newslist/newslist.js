@@ -5,14 +5,67 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    list:[],
+  },
+  getData(){
+    wx.cloud.callFunction({
+      name:"getDataNews",
+      data:{
+        number:6
+      }
+    }).then(res=>{
+      console.log(res.result.data)
+      this.setData({
+        list:res.result.data
+      })
+    })
+  },
+  onDel: function (e) {
+    var that = this;
+    let itemid = e.currentTarget.dataset.itemid//获取每一条记录的标题
+    console.log(itemid)
+    wx.showModal({
+      title: '提示',
+      content: '真的要删除吗?',
+      success:function(res){
+        if(res.confirm){
+          wx.cloud.callFunction({
+            name:"delNews",
+            data:{
+              delid:itemid
+            },
+            success:function(){
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success',
+                  duration: 2000
+                })
+                that.onLoad(); 
+            }
+            
+          })
+    
+        }
+      }
+    })
+    
+  },
+  jumpToAdd:function(){
+    wx.navigateTo({
+      url: '../addNews/addNews'
+    })
+  },
+  onEdit:function(){
+    wx.navigateTo({
+      // url: '..//',
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getData()
   },
 
   /**
@@ -63,9 +116,5 @@ Page({
   onShareAppMessage: function () {
 
   },
-  jumpToAdd:function(){
-    wx.navigateTo({
-      url: '../notice/notice'
-    })
-  },
+  
 })

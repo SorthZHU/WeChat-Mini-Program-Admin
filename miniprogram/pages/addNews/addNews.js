@@ -1,5 +1,6 @@
 // pages/addNews/addNews.js
 const db = wx.cloud.database();
+var souurl = null
 var tempurl = null
 var newurl = null
 Page({
@@ -11,30 +12,33 @@ Page({
     // newurl:0
   },
   //选择图片并上传
-  newupload(res){
+   newupload(res){
     let that = this;
     // console.log("成功",res);
     console.log(res.detail.current[0].url);
+    souurl = res.detail.current[0].url
+    console.log("0")
     that.uploadImage(res.detail.current[0].url);
   },
    // 上传到云开发的存储中
-   uploadImage(fileURL) {
+    uploadImage(fileURL) {
     var that = this
-    wx.cloud.uploadFile({
+     wx.cloud.uploadFile({
       cloudPath:'newsPic/' + new Date().getTime()+'.png', // 上传至云端的路径
       filePath: fileURL, // 小程序临时文件路径
       success: res => {
         //获取图片的http路径
         that.addImagePath(res.fileID)
+        console.log("1")
       },
       fail: console.error
     })
   },
   // 获取图片上传后的url路径
-  addImagePath(fileId) {
+   addImagePath(fileId) {
     console.log(fileId)
     // fileID：图片在云存储中的id
-    wx.cloud.getTempFileURL({
+      wx.cloud.getTempFileURL({
       fileList: [fileId],
       success: res => {
         // url：供调用的链接
@@ -44,20 +48,23 @@ Page({
         // })
         tempurl = res.fileList[0].tempFileURL
         console.log(tempurl)
+        console.log("2")
       },
       fail: console.error
     })
   },
   // 按钮提交
-  submit(event){
+   async submit(event){
+    let that = this;
+    // await that.uploadImage(souurl)
     // console.log(event.detail.values)
     var {noticeTitle,noticeAuthor,noticeContent} = event.detail.values
     // this.setData({
     //   newurl:tempurl
     // })
+    
     newurl = tempurl
     // console.log(noticeTitle,noticeAuthor,noticeContent)
-     var that = this;
      this.getTime();
      db.collection("News").add({
       data:{
@@ -72,13 +79,14 @@ Page({
           title: '添加成功',
           icon: 'success',
           duration: 2000,
-          // success:function(){
-          //   wx.navigateTo({
-          //     url: '../noticelist/noticelist',
-          //   }),
-          //   that.getData()
-          // }
+          success:function(){
+            wx.navigateTo({
+              url: '../newslist/newslist',
+            }),
+            that.getData()
+          }
         })
+        console.log("3")
     }
     })
     

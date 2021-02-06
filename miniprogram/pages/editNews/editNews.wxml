@@ -1,0 +1,42 @@
+<!-- 顶部导航栏 -->
+<view class="pubTitle">
+      <view class="txt">编辑新闻</view>
+      <view  class="more" open-type="reLaunch" bindtap="onDel">
+        <image src="cloud://wxyun-7g4bm1vn16ceb7ed.7778-wxyun-7g4bm1vn16ceb7ed-1304852033/icon/删 除 .png"></image>
+      </view>
+</view>
+
+<l-form name="news" l-form-btn-class="l-form-btn-class" bind:linsubmit="updataNews">
+  
+  <l-form-item label="标题:" name="newsTitle">
+      <l-input id="newsTitle" value="{{news.title}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+
+  <l-form-item label="作者:" name="newsAuthor">
+      <l-input id="newsAuthor" value="{{news.author}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+
+  <l-form-item label="内容:" name="newsContent">
+      <l-textarea id="newsContent" value="{{news.content}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+
+  <l-image-picker bind:linchange="newupload" urls="{{news.url}}" />
+  
+  <view slot="submit">
+      <l-button>更新</l-button>
+  </view>
+  <view slot="reset">
+      <l-button type="default" plain>重置</l-button>
+  </view>
+
+</l-form>
+
+<!-- <form bindsubmit="updataNotice">
+  <view wx:for="{{stitle}}" wx:key="key">
+  <input name="title" placeholder="请输入标题" value="{{item.title}}" wx:key="key"></input>
+  <input name="author" placeholder="请输入作者" value="{{item.author}}"></input>
+  <textarea class="scontent" name="content"  cols="30" rows="10" placeholder="请输入内容" value="{{item.content}}"></textarea>
+  <button type="primary" form-type="submit">更新</button>
+  <button type="primary" form-type="reset">重置</button>
+</view>
+</form> -->
