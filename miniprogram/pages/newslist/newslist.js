@@ -22,8 +22,8 @@ Page({
   },
   onDel: function (e) {
     var that = this;
-    let itemid = e.currentTarget.dataset.itemid//获取每一条记录的标题
-    console.log(itemid)
+    let itemid = e.currentTarget.dataset.itemid//获取每一条记录的id
+    // console.log("测试内容"+e.currentTarget.dataset)
     wx.showModal({
       title: '提示',
       content: '真的要删除吗?',

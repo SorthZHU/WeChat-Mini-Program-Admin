@@ -14,6 +14,7 @@ Page({
    */
   data: {
     tempid:null,
+    tempcloudid:null,
     stitle:[],
     testurl:[
       "https://7778-wxyun-7g4bm1vn16ceb7ed-1304852033.tcb.qcloud.la/newsPic/1612600161528.png"
@@ -26,15 +27,28 @@ Page({
     }
   },
   onDel: function (e) {
+    // console.log(e.currentTarget.dataset) 
     var that = this;
     var temp = this.data.tempid
+    var tempclid = this.data.tempcloudid
     // let itemid = e.currentTarget.dataset.itemid//获取每一条记录的标题
-    console.log(temp)
+    console.log(tempclid)
     wx.showModal({
       title: '提示',
       content: '真的要删除吗?',
       success:function(res){
         if(res.confirm){
+          //
+          //删除图片
+          wx.cloud.deleteFile({
+            fileList:[tempclid],
+              success: res => {
+                // handle success
+                console.log("图片删除成功")   
+              },
+              fail: console.error          
+            })
+          //
           wx.cloud.callFunction({
             name:"delNews",
             data:{
@@ -206,10 +220,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // console.log(options)
     wx.lin.initValidateForm(this)
     this.setData({
-      tempid:options.itemid
+      tempid:options.itemid,
+      tempcloudid:options.tempimgid
     }),
+    // console.log("加载"+this.data.tempid)
+    // console.log("加载"+this.data.tempcloudid)
     this.getData()
   },
 
