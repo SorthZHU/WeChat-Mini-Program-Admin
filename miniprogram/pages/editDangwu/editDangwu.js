@@ -2,11 +2,6 @@
 var souurl = null
 var tempurl = null
 var newurl = null
-var flag = 0
-var newsTitle = null
-var newsAuthor = null
-var newsContent = null
-var temp = null
 Page({
 
   /**
@@ -18,7 +13,7 @@ Page({
     testurl:[
       "https://7778-wxyun-7g4bm1vn16ceb7ed-1304852033.tcb.qcloud.la/newsPic/1612600161528.png"
     ],
-    news:{
+    dangWu:{
       title: '',
       author: '',
       content: '',
@@ -36,7 +31,7 @@ Page({
       success:function(res){
         if(res.confirm){
           wx.cloud.callFunction({
-            name:"delNews",
+            name:"delDangwu",
             data:{
               delid:temp
             },
@@ -47,7 +42,7 @@ Page({
                   duration: 2000,
                   success:function(){
                     wx.navigateTo({
-                      url: '../newslist/newslist',
+                      url: '../dangwulist/dangwulist',
                     }),
                     that.getData()
                   },
@@ -68,88 +63,75 @@ Page({
     var temp = this.data.tempid
     // console.log(temp)
     wx.cloud.callFunction({
-      name:"getNewsid",
+      name:"getDangwuId",
       data:{
         number:6,
         id:temp
       }
     }).then(res=>{
-      // console.log(res.result.data.length)
-      if( res.result.data.length != 0){
-        tempurl = res.result.data[0].url
+      // console.log(res)
+      tempurl = res.result.data[0].url
       this.setData({
         stitle:res.result.data,
-        news:{
+        dangWu:{
           title:res.result.data[0].title,
           author:res.result.data[0].author,
           content:res.result.data[0].content,
           url:[res.result.data[0].url]
         }
       })
-    }
+      
       
     })
   },
   //更新数据
-  async updataNews(res){
+  updataNews(res){
     // console.log(res)
     newurl = tempurl
-    temp = this.data.tempid
-    // var that = this;
-    // var {newsTitle,newsAuthor,newsContent} = res.detail.values
-    newsTitle = res.detail.values.newsTitle;
-    newsAuthor = res.detail.values.newsAuthor;
-    newsContent = res.detail.values.newsContent;
-    
-    if(flag == 1){
-      console.log("更新了图片执行函数1")
-     await this.uploadImage(souurl);
-    }
-    else{
-      console.log("未更新图片执行函数2")
-      newurl = tempurl
-        wx.cloud.callFunction({
-          name:"updataNews",
-          data:{
-            id:temp,
-            title:newsTitle,
-            author:newsAuthor,
-            content:newsContent,
-            url:newurl
-          },
+    console.log(newurl)
+    console.log("3")
+    var temp = this.data.tempid
+    var that = this;
+    var {newsTitle,newsAuthor,newsContent} = res.detail.values
+    console.log(newsTitle,newsAuthor,newsContent,newurl)
+    wx.cloud.callFunction({
+      name:"updataNews",
+      data:{
+        id:temp,
+        title:newsTitle,
+        author:newsAuthor,
+        content:newsContent,
+        url:newurl
+      },
+      success:function(){
+        wx.showToast({
+          title: '修改成功',
+          icon: 'success',
+          duration: 2000,
           success:function(){
-            wx.showToast({
-              title: '修改成功',
-              icon: 'success',
-              duration: 2000,
-              success:function(){
-                wx.navigateTo({
-                  url: '../newslist/newslist',
-                })
-                // that.getData()
-              }
-            })
-        }
-        
+            wx.navigateTo({
+              url: '../newslist/newslist',
+            }),
+            that.getData()
+          }
         })
     }
     
+    })
   },
   //选择图片并上传
   newupload(res){
     let that = this;
     // console.log("成功",res);
-    // console.log(res.detail.current[0].url);
+    console.log(res.detail.current[0].url);
     souurl = res.detail.current[0].url
-    flag = 1
-    console.log("更改了图片")
-    // console.log("0")
-    // that.uploadImage(res.detail.current[0].url);
+    console.log("0")
+    that.uploadImage(res.detail.current[0].url);
   },
    // 上传到云开发的存储中
-   async uploadImage(fileURL) {
+    uploadImage(fileURL) {
     var that = this
-    await wx.cloud.uploadFile({
+     wx.cloud.uploadFile({
       cloudPath:'newsPic/' + new Date().getTime()+'.png', // 上传至云端的路径
       filePath: fileURL, // 小程序临时文件路径
       success: res => {
@@ -161,43 +143,21 @@ Page({
     })
   },
   // 获取图片上传后的url路径
-  async addImagePath(fileId) {
+   addImagePath(fileId) {
     console.log(fileId)
     // fileID：图片在云存储中的id
-    await  wx.cloud.getTempFileURL({
+      wx.cloud.getTempFileURL({
       fileList: [fileId],
       success: res => {
         // url：供调用的链接
+        // this.setData({
+        //   tempurl:res.fileList[0].tempFileURL,
+        //   console.log(tempurl)
+        // })
         tempurl = res.fileList[0].tempFileURL
-        console.log("2")
-        //
         newurl = tempurl
-        console.log(newurl)
-        wx.cloud.callFunction({
-          name:"updataNews",
-          data:{
-            id:temp,
-            title:newsTitle,
-            author:newsAuthor,
-            content:newsContent,
-            url:newurl
-          },
-          success:function(){
-            wx.showToast({
-              title: '修改成功',
-              icon: 'success',
-              duration: 2000,
-              success:function(){
-                wx.navigateTo({
-                  url: '../newslist/newslist',
-                })
-                // that.getData()
-              }
-            })
-        }
-        
-        })
-        //
+        console.log(tempurl)
+        console.log("2")
       },
       fail: console.error
     })

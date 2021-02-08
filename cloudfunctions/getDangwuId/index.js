@@ -5,9 +5,9 @@ cloud.init()
 const db = cloud.database()
 // 云函数入口函数
 exports.main = async (event, context) => {
-  var temp = event.delid
-  // console.log(temp)
-  db.collection("latestNotice").where({
-    id:temp
-  }).remove().then(res=>{})
+  var id = event.id
+  // console.log(id)
+  return await db.collection("dangWu").where({
+    _id:id
+  }).get()
 }

@@ -1,0 +1,29 @@
+<view class="pubTitle">
+      <view class="txt">添加党务</view>
+      <view  class="more" open-type="reLaunch"></view>
+</view>
+
+<l-form name="dangwu" l-form-btn-class="l-form-btn-class" bind:linsubmit="submit">
+  
+  <l-form-item label="标题:" name="dangWuTitle">
+      <l-input id="dangWuTitle" value="{{dangWu.title}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+
+  <l-form-item label="作者:" name="dangWuAuthor">
+      <l-input id="dangWuAuthor" value="{{dangWu.author}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+
+  <l-form-item label="内容:" name="dangWuContent">
+      <l-textarea id="dangWuContent" value="{{dangWu.content}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+  <!-- 添加图片 -->
+  <l-image-picker bind:linchange="newupload" preview="true"/>
+
+  <view slot="submit">
+      <l-button>提交</l-button>
+  </view>
+  <view slot="reset">
+      <l-button type="default" plain>重置</l-button>
+  </view>
+
+</l-form>

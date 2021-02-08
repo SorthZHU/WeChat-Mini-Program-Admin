@@ -1,0 +1,16 @@
+<!-- 顶部导航栏 -->
+<view class="pubTitle">
+      <view class="txt">党务管理</view>
+      <view  class="more" open-type="reLaunch" bindtap="jumpToAdd">
+        <image src="cloud://wxyun-7g4bm1vn16ceb7ed.7778-wxyun-7g4bm1vn16ceb7ed-1304852033/icon/加.png"></image>
+      </view>
+</view>  
+  <!-- 查询内容 这里面定义实体类里面的字段-->
+  <!-- <view class="row"> -->
+    <block wx:for="{{list}}" wx:key="key">
+
+        <l-list class="erow" title="{{item.title}}" desc="{{item.author}}"  url="../editNews/editNews?itemid={{item._id}}" desc="{{item.time}}" tag-position="right" tag-content="编辑" tag-shape="circle" tag-color="#5CACEE" />
+        <view class="line"></view>
+       
+    </block>
+    

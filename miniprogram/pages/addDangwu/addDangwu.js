@@ -3,9 +3,9 @@ const db = wx.cloud.database();
 var souurl = null
 var tempurl = null
 var newurl = null
-var newsTitle = null
-var newsAuthor = null
-var newsContent = null
+var dangWuTitle = null
+var dangWuAuthor = null
+var dangWuContent = null
 Page({
 
   /**
@@ -27,7 +27,7 @@ Page({
  async uploadImage(fileURL) {
     var that = this
     await wx.cloud.uploadFile({
-      cloudPath:'newsPic/' + new Date().getTime()+'.png', // 上传至云端的路径
+      cloudPath:'dangWuPic/' + new Date().getTime()+'.png', // 上传至云端的路径
       filePath: fileURL, // 小程序临时文件路径
       success: res => {
         //获取图片的http路径
@@ -52,11 +52,11 @@ Page({
          
     newurl = tempurl
      this.getTime();
-     db.collection("News").add({
+     db.collection("dangWu").add({
       data:{
-        title:newsTitle,
-        author:newsAuthor,
-        content:newsContent,
+        title:dangWuTitle,
+        author:dangWuAuthor,
+        content:dangWuContent,
         time:this.data.time,
         url:newurl
       },
@@ -67,7 +67,7 @@ Page({
           duration: 2000,
           success:function(){
             wx.navigateTo({
-              url: '../newslist/newslist',
+              url: '../dangwulist/dangwulist',
             })
             // that.getData()
           }
@@ -83,10 +83,10 @@ Page({
   },
   // 按钮提交
   async submit(event){
-    //  {newsTitle,newsAuthor,newsContent} = event.detail.values 
-    newsTitle = event.detail.values.newsTitle;
-    newsAuthor = event.detail.values.newsAuthor;
-    newsContent = event.detail.values.newsContent;
+    //  {noticeTitle,noticeAuthor,noticeContent} = event.detail.values 
+    dangWuTitle = event.detail.values.dangWuTitle;
+    dangWuAuthor = event.detail.values.dangWuAuthor;
+    dangWuContent = event.detail.values.dangWuContent;
     await this.uploadImage(souurl);
     
   },

@@ -9,12 +9,12 @@ Page({
   },
   getData(){
     wx.cloud.callFunction({
-      name:"getDataNews",
+      name:"getDataDangwu",
       data:{
         number:6
       }
     }).then(res=>{
-      // console.log(res.result.data)
+      console.log(res.result.data)
       this.setData({
         list:res.result.data
       })
@@ -30,7 +30,7 @@ Page({
       success:function(res){
         if(res.confirm){
           wx.cloud.callFunction({
-            name:"delNews",
+            name:"delDangwu",
             data:{
               delid:itemid
             },
@@ -52,7 +52,7 @@ Page({
   },
   jumpToAdd:function(){
     wx.navigateTo({
-      url: '../addNews/addNews'
+      url: '../addDangwu/addDangwu'
     })
   },
   onEdit:function(){

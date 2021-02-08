@@ -3,21 +3,21 @@
       <view  class="more" open-type="reLaunch"></view>
 </view>
 
-<l-form name="notice" l-form-btn-class="l-form-btn-class" bind:linsubmit="submit">
+<l-form name="news" l-form-btn-class="l-form-btn-class" bind:linsubmit="submit">
   
-  <l-form-item label="标题:" name="noticeTitle">
-      <l-input id="noticeTitle" value="{{notice.title}}" hide-label show-row="{{false}}"/>
+  <l-form-item label="标题:" name="newsTitle">
+      <l-input id="newsTitle" value="{{news.title}}" hide-label show-row="{{false}}"/>
   </l-form-item>
 
-  <l-form-item label="作者:" name="noticeAuthor">
-      <l-input id="noticeAuthor" value="{{notice.author}}" hide-label show-row="{{false}}"/>
+  <l-form-item label="作者:" name="newsAuthor">
+      <l-input id="newsAuthor" value="{{news.author}}" hide-label show-row="{{false}}"/>
   </l-form-item>
 
-  <l-form-item label="内容:" name="noticeContent">
-      <l-textarea id="noticeContent" value="{{notice.content}}" hide-label show-row="{{false}}"/>
+  <l-form-item label="内容:" name="newsContent">
+      <l-textarea id="newsContent" value="{{notice.content}}" hide-label show-row="{{false}}"/>
   </l-form-item>
   <!-- 添加图片 -->
-  <l-image-picker bind:linchange="newupload"/>
+  <l-image-picker bind:linchange="newupload" preview="true" count="1"/>
 
   <view slot="submit">
       <l-button>提交</l-button>

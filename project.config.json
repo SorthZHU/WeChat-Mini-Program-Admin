@@ -19,7 +19,7 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
-    "useMultiFrameRuntime": false,
+    "useMultiFrameRuntime": true,
     "useApiHook": true,
     "babelSetting": {
       "ignore": [],
@@ -34,11 +34,12 @@
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "minifyWXSS": true
+    "minifyWXSS": true,
+    "useApiHostProcess": true
   },
   "appid": "wx6bdd28e593e35de5",
   "projectname": "dangjian-admin",
-  "libVersion": "2.14.4",
+  "libVersion": "2.14.1",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
@@ -98,6 +99,12 @@
         {
           "name": "pages/addNews/addNews",
           "pathName": "pages/addNews/addNews",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/dangwulist/dangwulist",
+          "pathName": "pages/dangwulist/dangwulist",
           "scene": null
         }
       ]

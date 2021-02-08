@@ -14,6 +14,10 @@ Page({
         title:"新闻管理",
         iconName:"xinwen"
       },
+      {
+        title:"党务管理",
+        iconName:"dangwu"
+      },
     ]
 
   },

@@ -1,0 +1,34 @@
+<!-- 顶部导航栏 -->
+<view class="pubTitle">
+      <view class="txt">编辑党务</view>
+      <view  class="more" open-type="reLaunch" bindtap="onDel">
+        <image src="cloud://wxyun-7g4bm1vn16ceb7ed.7778-wxyun-7g4bm1vn16ceb7ed-1304852033/icon/删 除 .png"></image>
+      </view>
+</view>
+
+<l-form name="dangWu" l-form-btn-class="l-form-btn-class" bind:linsubmit="updataNews">
+  
+  <l-form-item label="标题:" name="dangWuTitle">
+      <l-input id="dangWuTitle" value="{{dangWu.title}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+
+  <l-form-item label="作者:" name="dangWuAuthor">
+      <l-input id="dangWuAuthor" value="{{dangWu.author}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+
+  <l-form-item label="内容:" name="dangWuContent">
+      <l-textarea id="dangWuContent" value="{{dangWu.content}}" hide-label show-row="{{false}}"/>
+  </l-form-item>
+
+  <l-image-picker bind:linchange="newupload" urls="{{dangWu.url}}" preview="true"/>
+  
+  <view slot="submit">
+      <l-button>更新</l-button>
+  </view>
+  <view slot="reset">
+      <l-button type="default" plain>重置</l-button>
+  </view>
+
+</l-form>
+
+

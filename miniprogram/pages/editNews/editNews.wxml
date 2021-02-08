@@ -20,7 +20,7 @@
       <l-textarea id="newsContent" value="{{news.content}}" hide-label show-row="{{false}}"/>
   </l-form-item>
 
-  <l-image-picker bind:linchange="newupload" urls="{{news.url}}" />
+  <l-image-picker count="1"  bind:linchange="newupload" urls="{{news.url}}" preview="true" />
   
   <view slot="submit">
       <l-button>更新</l-button>

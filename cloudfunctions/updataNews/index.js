@@ -19,6 +19,6 @@ exports.main = async (event, context) => {
       url:u
     }
   }).then(res=>{
-    console.log(author,title,content)
+    // console.log(author,title,content)
   })
 }

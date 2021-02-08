@@ -71,4 +71,7 @@
 .l-icon-xinwen:before {
   content: "\e885";
 }
+.l-icon-dangwu:before {
+  content: "\e885";
+}
 
