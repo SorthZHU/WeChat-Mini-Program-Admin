@@ -14,7 +14,7 @@ Page({
         number:6
       }
     }).then(res=>{
-      console.log(res.result.data)
+      // console.log(res.result.data)
       this.setData({
         list:res.result.data
       })

@@ -26,6 +26,17 @@ Page({
       url:[""]
     }
   },
+  //删除图片函数
+  delimg(temp){
+    wx.cloud.deleteFile({
+      fileList:[temp],
+        success: res => {
+          // handle success
+          console.log("图片删除成功")   
+        },
+        fail: console.error          
+      })
+  },
   onDel: function (e) {
     // console.log(e.currentTarget.dataset) 
     var that = this;
@@ -40,14 +51,7 @@ Page({
         if(res.confirm){
           //
           //删除图片
-          wx.cloud.deleteFile({
-            fileList:[tempclid],
-              success: res => {
-                // handle success
-                console.log("图片删除成功")   
-              },
-              fail: console.error          
-            })
+          that.delimg(tempclid)
           //
           wx.cloud.callFunction({
             name:"delNews",
@@ -163,6 +167,8 @@ Page({
    // 上传到云开发的存储中
    async uploadImage(fileURL) {
     var that = this
+    var tempid = this.data.tempcloudid
+    that.delimg(tempid)
     await wx.cloud.uploadFile({
       cloudPath:'newsPic/' + new Date().getTime()+'.png', // 上传至云端的路径
       filePath: fileURL, // 小程序临时文件路径

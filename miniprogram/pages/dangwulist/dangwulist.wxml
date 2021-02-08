@@ -9,7 +9,7 @@
   <!-- <view class="row"> -->
     <block wx:for="{{list}}" wx:key="key">
 
-        <l-list class="erow" title="{{item.title}}" desc="{{item.author}}"  url="../editNews/editNews?itemid={{item._id}}" desc="{{item.time}}" tag-position="right" tag-content="编辑" tag-shape="circle" tag-color="#5CACEE" />
+        <l-list class="erow" title="{{item.title}}" desc="{{item.author}}"  url="../editDangwu/editDangwu?itemid={{item._id}}&tempimgid={{item.imgcloudid}}" desc="{{item.time}}" tag-position="right" tag-content="编辑" tag-shape="circle" tag-color="#5CACEE" />
         <view class="line"></view>
        
     </block>

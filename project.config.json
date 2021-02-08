@@ -39,7 +39,7 @@
   },
   "appid": "wx6bdd28e593e35de5",
   "projectname": "dangjian-admin",
-  "libVersion": "2.14.1",
+  "libVersion": "2.15.0",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {

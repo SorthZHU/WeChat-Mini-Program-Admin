@@ -9,5 +9,7 @@ exports.main = async (event, context) => {
   // console.log(id)
   return await db.collection("dangWu").where({
     _id:id
-  }).get()
+  }).get().then(res=>{
+    console.log(res)
+  })
 }

@@ -2,6 +2,11 @@
 var souurl = null
 var tempurl = null
 var newurl = null
+var flag = 0
+var dangWuTitle = null
+var dangWuAuthor = null
+var dangWuContent = null
+var temp = null
 Page({
 
   /**
@@ -9,27 +14,45 @@ Page({
    */
   data: {
     tempid:null,
+    tempcloudid:null,
     stitle:[],
     testurl:[
       "https://7778-wxyun-7g4bm1vn16ceb7ed-1304852033.tcb.qcloud.la/newsPic/1612600161528.png"
     ],
-    dangWu:{
+    dangwu:{
       title: '',
       author: '',
       content: '',
       url:[""]
     }
   },
+  //删除图片函数
+  delimg(temp){
+    wx.cloud.deleteFile({
+      fileList:[temp],
+        success: res => {
+          // handle success
+          console.log("图片删除成功")   
+        },
+        fail: console.error          
+      })
+  },
   onDel: function (e) {
+    // console.log(e.currentTarget.dataset) 
     var that = this;
     var temp = this.data.tempid
+    var tempclid = this.data.tempcloudid
     // let itemid = e.currentTarget.dataset.itemid//获取每一条记录的标题
-    console.log(temp)
+    // console.log(tempclid)
     wx.showModal({
       title: '提示',
       content: '真的要删除吗?',
       success:function(res){
         if(res.confirm){
+          //
+          //删除图片
+          that.delimg(tempclid)
+          //
           wx.cloud.callFunction({
             name:"delDangwu",
             data:{
@@ -43,8 +66,8 @@ Page({
                   success:function(){
                     wx.navigateTo({
                       url: '../dangwulist/dangwulist',
-                    }),
-                    that.getData()
+                    })
+                    // that.getData()
                   },
                   error:function(){
                     console.log("失败")
@@ -69,8 +92,9 @@ Page({
         id:temp
       }
     }).then(res=>{
-      // console.log(res)
-      tempurl = res.result.data[0].url
+      // console.log(res.result.data.length)
+      if(res.result.data.length != 0){
+        tempurl = res.result.data[0].url
       this.setData({
         stitle:res.result.data,
         dangWu:{
@@ -80,84 +104,120 @@ Page({
           url:[res.result.data[0].url]
         }
       })
-      
+    }
       
     })
   },
   //更新数据
-  updataNews(res){
+  async updataNews(res){
     // console.log(res)
     newurl = tempurl
-    console.log(newurl)
-    console.log("3")
-    var temp = this.data.tempid
-    var that = this;
-    var {newsTitle,newsAuthor,newsContent} = res.detail.values
-    console.log(newsTitle,newsAuthor,newsContent,newurl)
-    wx.cloud.callFunction({
-      name:"updataNews",
-      data:{
-        id:temp,
-        title:newsTitle,
-        author:newsAuthor,
-        content:newsContent,
-        url:newurl
-      },
-      success:function(){
-        wx.showToast({
-          title: '修改成功',
-          icon: 'success',
-          duration: 2000,
+    temp = this.data.tempid
+    // var that = this;
+    // var {newsTitle,newsAuthor,newsContent} = res.detail.values
+    dangWuTitle = res.detail.values.dangWuTitle;
+    dangWuAuthor = res.detail.values.dangWuAuthor;
+    dangWuContent = res.detail.values.dangWuContent;
+    
+    if(flag == 1){
+      console.log("更新了图片执行函数1")
+     await this.uploadImage(souurl);
+    }
+    else{
+      console.log("未更新图片执行函数2")
+      newurl = tempurl
+        wx.cloud.callFunction({
+          name:"updataNews",
+          data:{
+            id:temp,
+            title:dangWuTitle,
+            author:dangWuAuthor,
+            content:dangWuContent,
+            url:newurl
+          },
           success:function(){
-            wx.navigateTo({
-              url: '../newslist/newslist',
-            }),
-            that.getData()
-          }
+            wx.showToast({
+              title: '修改成功',
+              icon: 'success',
+              duration: 2000,
+              success:function(){
+                wx.navigateTo({
+                  url: '../dangwulist/dangwulist',
+                })
+                // that.getData()
+              }
+            })
+        }
+        
         })
     }
     
-    })
   },
   //选择图片并上传
   newupload(res){
     let that = this;
     // console.log("成功",res);
-    console.log(res.detail.current[0].url);
+    // console.log(res.detail.current[0].url);
     souurl = res.detail.current[0].url
-    console.log("0")
-    that.uploadImage(res.detail.current[0].url);
+    flag = 1
+    console.log("更改了图片")
+    // console.log("0")
+    // that.uploadImage(res.detail.current[0].url);
   },
    // 上传到云开发的存储中
-    uploadImage(fileURL) {
+   async uploadImage(fileURL) {
     var that = this
-     wx.cloud.uploadFile({
-      cloudPath:'newsPic/' + new Date().getTime()+'.png', // 上传至云端的路径
+    var tempid = this.data.tempcloudid
+    that.delimg(tempid)
+    await wx.cloud.uploadFile({
+      cloudPath:'dangWuPic/' + new Date().getTime()+'.png', // 上传至云端的路径
       filePath: fileURL, // 小程序临时文件路径
       success: res => {
         //获取图片的http路径
         that.addImagePath(res.fileID)
-        console.log("1")
+        // console.log("1")
       },
       fail: console.error
     })
   },
   // 获取图片上传后的url路径
-   addImagePath(fileId) {
+  async addImagePath(fileId) {
     console.log(fileId)
     // fileID：图片在云存储中的id
-      wx.cloud.getTempFileURL({
+    await  wx.cloud.getTempFileURL({
       fileList: [fileId],
       success: res => {
         // url：供调用的链接
-        // this.setData({
-        //   tempurl:res.fileList[0].tempFileURL,
-        //   console.log(tempurl)
-        // })
         tempurl = res.fileList[0].tempFileURL
-        newurl = tempurl
-        console.log(tempurl)
         console.log("2")
+        //
+        newurl = tempurl
+        console.log(newurl)
+        wx.cloud.callFunction({
+          name:"updataDangwu",
+          data:{
+            id:temp,
+            title:dangWuTitle,
+            author:dangWuAuthor,
+            content:dangWuContent,
+            url:newurl
+          },
+          success:function(){
+            wx.showToast({
+              title: '修改成功',
+              icon: 'success',
+              duration: 2000,
+              success:function(){
+                wx.navigateTo({
+                  url: '../dangwulist/dangwulist',
+                })
+                // that.getData()
+              }
+            })
+        }
+        
+        })
+        //
       },
       fail: console.error
     })
@@ -166,10 +226,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // console.log(options)
     wx.lin.initValidateForm(this)
     this.setData({
-      tempid:options.itemid
+      tempid:options.itemid,
+      tempcloudid:options.tempimgid
     }),
+    // console.log("加载"+this.data.tempid)
+    // console.log("加载"+this.data.tempcloudid)
     this.getData()
   },
 

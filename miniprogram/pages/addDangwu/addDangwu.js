@@ -6,6 +6,7 @@ var newurl = null
 var dangWuTitle = null
 var dangWuAuthor = null
 var dangWuContent = null
+var tempfileid = null
 Page({
 
   /**
@@ -32,13 +33,14 @@ Page({
       success: res => {
         //获取图片的http路径
         that.addImagePath(res.fileID)
-        console.log("1")
+        // console.log("1")
       },
       fail: console.error
     })
   },
   // 获取图片上传后的url路径
   async addImagePath(fileId) {
+    tempfileid = fileId //用于上传id 之后删除使用
     // console.log(fileId)
     // fileID：图片在云存储中的id
     await  wx.cloud.getTempFileURL({
@@ -46,21 +48,21 @@ Page({
       success: res => {
         // url：供调用的链接
         tempurl = res.fileList[0].tempFileURL
-        console.log(tempurl)
-        console.log("2")
+        // console.log(tempurl)
+        // console.log("2")
         //
-         
-    newurl = tempurl
-     this.getTime();
-     db.collection("dangWu").add({
-      data:{
-        title:dangWuTitle,
-        author:dangWuAuthor,
-        content:dangWuContent,
-        time:this.data.time,
-        url:newurl
-      },
-      success:function(){
+        newurl = tempurl
+        this.getTime();
+        db.collection("dangWu").add({
+        data:{
+          title:dangWuTitle,
+          author:dangWuAuthor,
+          content:dangWuContent,
+          time:this.data.time,
+          url:newurl,
+          imgcloudid:tempfileid
+         },
+          success:function(){
         wx.showToast({
           title: '添加成功',
           icon: 'success',
@@ -83,7 +85,7 @@ Page({
   },
   // 按钮提交
   async submit(event){
-    //  {noticeTitle,noticeAuthor,noticeContent} = event.detail.values 
+    //  {newsTitle,newsAuthor,newsContent} = event.detail.values 
     dangWuTitle = event.detail.values.dangWuTitle;
     dangWuAuthor = event.detail.values.dangWuAuthor;
     dangWuContent = event.detail.values.dangWuContent;

@@ -17,7 +17,7 @@
       <l-textarea id="dangWuContent" value="{{dangWu.content}}" hide-label show-row="{{false}}"/>
   </l-form-item>
   <!-- 添加图片 -->
-  <l-image-picker bind:linchange="newupload" preview="true"/>
+  <l-image-picker bind:linchange="newupload" preview="true" count="1"/>
 
   <view slot="submit">
       <l-button>提交</l-button>
